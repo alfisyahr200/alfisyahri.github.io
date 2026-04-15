@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Alfi Syahri – Portfolio</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --accent: #1F4E79;
+    --accent-light: #D6E4F0;
+    --accent-mid: #3A78B5;
+    --text: #1a1a1a;
+    --text-muted: #555;
+    --bg: #ffffff;
+    --bg-secondary: #f5f7fa;
+    --border: #e0e6ed;
+    --card-shadow: 0 2px 12px rgba(31,78,121,0.07);
+    --radius: 12px;
+  }
+
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+  }
+
+  /* NAV */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo { font-weight: 700; font-size: 1.1rem; color: var(--accent); letter-spacing: -0.5px; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text-muted); font-size: 0.9rem; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    background: linear-gradient(135deg, #0d2d4e 0%, #1F4E79 50%, #2d6da8 100%);
+    padding: 6rem 2rem 4rem;
+    position: relative; overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; top: -50%; right: -10%;
+    width: 600px; height: 600px; border-radius: 50%;
+    background: rgba(255,255,255,0.04);
+  }
+  .hero::after {
+    content: '';
+    position: absolute; bottom: -20%; left: -5%;
+    width: 400px; height: 400px; border-radius: 50%;
+    background: rgba(255,255,255,0.03);
+  }
+  .hero-content { max-width: 700px; position: relative; z-index: 1; }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    color: #a8d4f5;
+    font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase;
+    padding: 6px 16px; border-radius: 20px;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800; color: #fff;
+    line-height: 1.1; margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+  }
+  .hero h1 span { color: #a8d4f5; }
+  .hero-subtitle {
+    font-size: 1.1rem; color: rgba(255,255,255,0.75);
+    margin-bottom: 2rem; max-width: 500px;
+  }
+  .hero-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 2.5rem; }
+  .badge {
+    background: rgba(255,255,255,0.12);
+    color: rgba(255,255,255,0.9);
+    border: 1px solid rgba(255,255,255,0.2);
+    padding: 6px 14px; border-radius: 20px;
+    font-size: 0.82rem;
+  }
+  .hero-cta { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn-primary {
+    background: #fff; color: var(--accent);
+    padding: 12px 28px; border-radius: 8px;
+    text-decoration: none; font-weight: 600; font-size: 0.9rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+  .btn-outline {
+    border: 1.5px solid rgba(255,255,255,0.5); color: #fff;
+    padding: 12px 28px; border-radius: 8px;
+    text-decoration: none; font-weight: 500; font-size: 0.9rem;
+    transition: all 0.2s;
+    display: inline-block;
+  }
+  .btn-outline:hover { background: rgba(255,255,255,0.1); }
+
+  /* SECTIONS */
+  section { padding: 5rem 2rem; }
+  .container { max-width: 960px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--accent-mid); font-weight: 600; margin-bottom: 0.5rem;
+  }
+  .section-title {
+    font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 700;
+    color: var(--text); margin-bottom: 0.75rem; letter-spacing: -0.5px;
+  }
+  .section-desc { color: var(--text-muted); max-width: 520px; margin-bottom: 3rem; }
+
+  /* ABOUT */
+  .about { background: var(--bg-secondary); }
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .about-info p { color: var(--text-muted); margin-bottom: 1rem; line-height: 1.8; }
+  .info-list { list-style: none; margin-top: 1.5rem; }
+  .info-list li {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 0; border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+  }
+  .info-list li:last-child { border-bottom: none; }
+  .info-label { color: var(--text-muted); min-width: 110px; font-size: 0.85rem; }
+  .info-value { color: var(--text); font-weight: 500; }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; }
+  .skill-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .skill-card:hover { transform: translateY(-3px); box-shadow: var(--card-shadow); }
+  .skill-icon {
+    width: 44px; height: 44px; border-radius: 10px;
+    background: var(--accent-light);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem; font-size: 1.3rem;
+  }
+  .skill-card h3 { font-size: 1rem; font-weight: 600; color: var(--text); margin-bottom: 0.5rem; }
+  .skill-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 0.75rem; }
+  .skill-tag {
+    background: var(--accent-light); color: var(--accent);
+    font-size: 0.75rem; padding: 3px 10px; border-radius: 20px;
+    font-weight: 500;
+  }
+
+  /* PROJECTS */
+  .projects { background: var(--bg-secondary); }
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
+  .project-card {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .project-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(31,78,121,0.12); }
+  .project-thumb {
+    height: 160px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 3rem;
+    position: relative;
+  }
+  .thumb-1 { background: linear-gradient(135deg, #1F4E79, #2d7fc1); }
+  .thumb-2 { background: linear-gradient(135deg, #0f6e56, #1d9e75); }
+  .thumb-3 { background: linear-gradient(135deg, #7f3fbf, #a06dd4); }
+  .project-body { padding: 1.25rem; }
+  .project-role {
+    font-size: 0.72rem; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--accent-mid); font-weight: 600; margin-bottom: 0.4rem;
+  }
+  .project-card h3 { font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+  .project-card p { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+  .project-tag {
+    background: var(--bg-secondary); color: var(--text-muted);
+    font-size: 0.72rem; padding: 3px 10px; border-radius: 20px; border: 1px solid var(--border);
+  }
+
+  /* EXPERIENCE */
+  .timeline { position: relative; padding-left: 2rem; }
+  .timeline::before {
+    content: ''; position: absolute; left: 7px; top: 0; bottom: 0;
+    width: 2px; background: var(--border);
+  }
+  .timeline-item { position: relative; margin-bottom: 2.5rem; }
+  .timeline-dot {
+    position: absolute; left: -2rem;
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent); border: 3px solid var(--bg);
+    box-shadow: 0 0 0 2px var(--accent);
+    top: 4px;
+  }
+  .timeline-meta { font-size: 0.8rem; color: var(--accent-mid); font-weight: 600; margin-bottom: 0.25rem; }
+  .timeline-title { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+  .timeline-company { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.75rem; }
+  .timeline-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+  .timeline-desc li { margin-bottom: 4px; }
+
+  /* CONTACT */
+  .contact { background: var(--accent); }
+  .contact .section-label { color: #a8d4f5; }
+  .contact .section-title { color: #fff; }
+  .contact .section-desc { color: rgba(255,255,255,0.7); }
+  .contact-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; }
+  .contact-card {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: var(--radius); padding: 1.25rem;
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; color: #fff;
+    transition: background 0.2s;
+  }
+  .contact-card:hover { background: rgba(255,255,255,0.18); }
+  .contact-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.1rem; flex-shrink: 0;
+  }
+  .contact-label { font-size: 0.72rem; color: rgba(255,255,255,0.6); text-transform: uppercase; letter-spacing: 1px; }
+  .contact-value { font-size: 0.88rem; font-weight: 500; }
+
+  /* FOOTER */
+  footer {
+    text-align: center; padding: 2rem;
+    background: #0d2d4e; color: rgba(255,255,255,0.4);
+    font-size: 0.82rem;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 640px) {
+    .about-grid { grid-template-columns: 1fr; }
+    nav { padding: 0 1rem; }
+    .nav-links { gap: 1rem; }
+    section { padding: 3.5rem 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-logo">Alfi Syahri</span>
+  <ul class="nav-links">
+    <li><a href="#about">Tentang</a></li>
+    <li><a href="#skills">Skill</a></li>
+    <li><a href="#projects">Project</a></li>
+    <li><a href="#experience">Pengalaman</a></li>
+    <li><a href="#contact">Kontak</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-content">
+    <span class="hero-tag">Portfolio – 2024</span>
+    <h1>Alfi <span>Syahri</span></h1>
+    <p class="hero-subtitle">UI/UX Designer & Frontend Developer yang berfokus pada desain antarmuka yang intuitif dan pengalaman pengguna yang menyenangkan.</p>
+    <div class="hero-badges">
+      <span class="badge">🎨 UI/UX Design</span>
+      <span class="badge">💻 Frontend Dev</span>
+      <span class="badge">✅ eKYC Agent</span>
+      <span class="badge">📊 Data Analyst</span>
+    </div>
+    <div class="hero-cta">
+      <a href="#projects" class="btn-primary">Lihat Project</a>
+      <a href="#contact" class="btn-outline">Hubungi Saya</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-info">
+        <p class="section-label">Tentang Saya</p>
+        <h2 class="section-title">Halo, saya Alfi 👋</h2>
+        <p>Lulusan S1 Informatika Universitas Ahmad Dahlan (UAD) dengan passion di bidang desain UI/UX dan pengembangan frontend. Saya percaya bahwa desain yang baik bukan hanya soal estetika, tapi juga soal fungsi dan kemudahan pengguna.</p>
+        <p>Saya berpengalaman bekerja dalam tim lintas fungsi, mampu beradaptasi cepat, dan selalu antusias mempelajari teknologi baru.</p>
+      </div>
+      <div>
+        <ul class="info-list">
+          <li>
+            <span class="info-label">Nama</span>
+            <span class="info-value">Alfi Syahri</span>
+          </li>
+          <li>
+            <span class="info-label">Tanggal Lahir</span>
+            <span class="info-value">03 Juli 2000</span>
+          </li>
+          <li>
+            <span class="info-label">Domisili</span>
+            <span class="info-value">Jambi, Indonesia</span>
+          </li>
+          <li>
+            <span class="info-label">Pendidikan</span>
+            <span class="info-value">S1 Informatika – UAD</span>
+          </li>
+          <li>
+            <span class="info-label">Email</span>
+            <span class="info-value">alfisyahr2000@gmail.com</span>
+          </li>
+          <li>
+            <span class="info-label">Status</span>
+            <span class="info-value" style="color:#0f6e56;font-weight:600;">Open to Work ✓</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <p class="section-label">Keahlian</p>
+    <h2 class="section-title">Skill & Tools</h2>
+    <p class="section-desc">Kombinasi skill desain dan teknis yang memungkinkan saya bekerja dari wireframe hingga implementasi.</p>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🎨</div>
+        <h3>UI/UX Design</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);">Merancang antarmuka yang intuitif dan estetis berdasarkan kebutuhan pengguna.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Figma</span>
+          <span class="skill-tag">Canva</span>
+          <span class="skill-tag">Wireframing</span>
+          <span class="skill-tag">Prototyping</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">💻</div>
+        <h3>Frontend Development</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);">Mengimplementasikan desain menjadi halaman web yang responsif dan fungsional.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">HTML</span>
+          <span class="skill-tag">CSS</span>
+          <span class="skill-tag">JavaScript</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📊</div>
+        <h3>Data & Analitik</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);">Mengolah dan menganalisis data untuk mendukung pengambilan keputusan.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">SQLite</span>
+          <span class="skill-tag">Microsoft Office</span>
+          <span class="skill-tag">Excel</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🛠️</div>
+        <h3>Tools Umum</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);">Terbiasa menggunakan berbagai tools produktivitas dan teknologi digital.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">MS Office</span>
+          <span class="skill-tag">Internet Research</span>
+          <span class="skill-tag">Digital Literacy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="projects" id="projects">
+  <div class="container">
+    <p class="section-label">Portfolio</p>
+    <h2 class="section-title">Project Unggulan</h2>
+    <p class="section-desc">Beberapa project yang pernah saya kerjakan selama kuliah dan magang.</p>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-thumb thumb-1">🏫</div>
+        <div class="project-body">
+          <p class="project-role">UI/UX Design • Frontend Dev • Magang</p>
+          <h3>Website Profil SD</h3>
+          <p>Merancang dan mengembangkan website profil sekolah dasar dari tahap wireframe hingga implementasi frontend. Fokus pada kemudahan navigasi dan tampilan yang ramah pengguna.</p>
+          <div class="project-tags">
+            <span class="project-tag">Figma</span>
+            <span class="project-tag">HTML/CSS</span>
+            <span class="project-tag">JavaScript</span>
+            <span class="project-tag">UI/UX</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb thumb-2">🥚</div>
+        <div class="project-body">
+          <p class="project-role">Team Project • Bendahara • Kuliah</p>
+          <h3>Website Penjualan Telur Ayam</h3>
+          <p>Platform e-commerce sederhana untuk penjualan telur ayam. Dikerjakan bersama tim 5 orang dengan peran sebagai bendahara sekaligus membantu lintas divisi — desain, coding, dan dokumentasi.</p>
+          <div class="project-tags">
+            <span class="project-tag">E-Commerce</span>
+            <span class="project-tag">Team Work</span>
+            <span class="project-tag">Web Dev</span>
+            <span class="project-tag">5 Orang</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb thumb-3">🔐</div>
+        <div class="project-body">
+          <p class="project-role">Freelance • eKYC • OVO</p>
+          <h3>eKYC Agent – OVO</h3>
+          <p>Verifikasi identitas digital nasabah OVO secara akurat sesuai standar kepatuhan. Menangani eskalasi kasus dan berkoordinasi dengan tim untuk memastikan proses berjalan lancar.</p>
+          <div class="project-tags">
+            <span class="project-tag">eKYC</span>
+            <span class="project-tag">Verifikasi Digital</span>
+            <span class="project-tag">Fintech</span>
+            <span class="project-tag">OVO</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label">Perjalanan</p>
+    <h2 class="section-title">Pengalaman</h2>
+    <p class="section-desc" style="margin-bottom:2.5rem;">Riwayat pekerjaan dan aktivitas profesional saya.</p>
+    <div class="timeline">
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-meta">2023 – Sekarang</p>
+        <p class="timeline-title">eKYC Agent – Freelance</p>
+        <p class="timeline-company">Proyek OVO • Jambi</p>
+        <ul class="timeline-desc" style="padding-left:1.2rem;">
+          <li>Melakukan verifikasi identitas nasabah secara digital sesuai standar kepatuhan OVO.</li>
+          <li>Memastikan akurasi dan keabsahan dokumen yang diajukan pengguna.</li>
+          <li>Menangani eskalasi kasus dan berkoordinasi dengan tim terkait.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-meta">2022 (Estimasi) • Magang</p>
+        <p class="timeline-title">UI/UX Designer & Frontend Developer</p>
+        <p class="timeline-company">Project Website Profil SD • Yogyakarta</p>
+        <ul class="timeline-desc" style="padding-left:1.2rem;">
+          <li>Merancang desain antarmuka website profil sekolah menggunakan Figma.</li>
+          <li>Mengimplementasikan desain ke dalam kode frontend yang responsif.</li>
+        </ul>
+      </div>
+
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <p class="timeline-meta">2019 – 2023</p>
+        <p class="timeline-title">S1 Informatika</p>
+        <p class="timeline-company">Universitas Ahmad Dahlan (UAD) • Yogyakarta</p>
+        <p class="timeline-desc">Menyelesaikan studi dengan IPK 3.xx. Aktif dalam pengerjaan project tim, termasuk pengembangan website e-commerce sebagai bagian dari tugas mata kuliah.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="container">
+    <p class="section-label">Kontak</p>
+    <h2 class="section-title">Mari Berkolaborasi!</h2>
+    <p class="section-desc">Terbuka untuk peluang kerja, freelance, atau sekadar ngobrol soal desain dan teknologi.</p>
+    <div class="contact-cards">
+      <a href="mailto:alfisyahr2000@gmail.com" class="contact-card">
+        <div class="contact-icon">📧</div>
+        <div>
+          <p class="contact-label">Email</p>
+          <p class="contact-value">alfisyahr2000@gmail.com</p>
+        </div>
+      </a>
+      <a href="tel:085758491444" class="contact-card">
+        <div class="contact-icon">📱</div>
+        <div>
+          <p class="contact-label">WhatsApp / Telepon</p>
+          <p class="contact-value">085758491444</p>
+        </div>
+      </a>
+      <a href="#" class="contact-card">
+        <div class="contact-icon">🔗</div>
+        <div>
+          <p class="contact-label">Portfolio / LinkedIn</p>
+          <p class="contact-value">Isi link kamu di sini</p>
+        </div>
+      </a>
+      <div class="contact-card" style="cursor:default;">
+        <div class="contact-icon">📍</div>
+        <div>
+          <p class="contact-label">Lokasi</p>
+          <p class="contact-value">Jambi, Indonesia</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>© 2024 Alfi Syahri · Dibuat dengan semangat ☕</p>
+</footer>
+
+<script>
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const el = document.querySelector(a.getAttribute('href'));
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+</script>
+</body>
+</html>
